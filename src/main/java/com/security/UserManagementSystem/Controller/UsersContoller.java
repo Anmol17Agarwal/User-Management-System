@@ -1,6 +1,8 @@
 package com.security.UserManagementSystem.Controller;
 
 import com.security.UserManagementSystem.Entity.Users;
+import com.security.UserManagementSystem.Repository.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +16,15 @@ import java.util.List;
 @RestController
 public class UsersContoller {
 
-    private List<Users> users = new ArrayList<>(List.of(
-            new Users(1L,"Anmol","A@123","USER"),
-            new Users(2L,"Sanjay","S@123","USER")
-    ));
+    @Autowired
+    UsersRepository usersRepository;
+//    private List<Users> users = new ArrayList<>(List.of(
+//            new Users(1L,"Anmol","A@123","USER"),
+//            new Users(2L,"Sanjay","S@123","USER")
+//    ));
     @GetMapping("/users")
     public List<Users> getUser(){
-        return users;
+        return usersRepository.findAll() ;
     }
 
     @GetMapping("/csrf-token")
@@ -30,7 +34,7 @@ public class UsersContoller {
 
     @PostMapping("/users")
     public Users createUser(@RequestBody Users user){
-        users.add(user);
+        usersRepository.save(user);
         return user;
     }
 }
