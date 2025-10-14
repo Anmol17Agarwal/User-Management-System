@@ -1,13 +1,16 @@
 package com.security.UserManagementSystem.Entity;
 
-public class User {
+public class Users {
     private Long userId;
     private String userName;
+
+    private String userPassword;
     private String userRole;
 
-    public User(Long userId, String userName, String userRole) {
+    public Users(Long userId, String userName, String userPassword, String userRole) {
         this.userId = userId;
         this.userName = userName;
+        this.userPassword = userPassword;
         this.userRole = userRole;
     }
     public Long getUserId() {
@@ -34,11 +37,20 @@ public class User {
         this.userRole = userRole;
     }
 
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
                 ", userRole='" + userRole + '\'' +
                 '}';
     }
