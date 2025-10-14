@@ -1,6 +1,6 @@
 package com.security.UserManagementSystem.Controller;
 
-import com.security.UserManagementSystem.Entity.User;
+import com.security.UserManagementSystem.Entity.Users;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class UserContoller {
+public class UsersContoller {
 
-    private List<User> users = new ArrayList<>(List.of(
-            new User(1L,"Anmol","USER"),
-            new User(2L,"Sanjay","ADMIN")
+    private List<Users> users = new ArrayList<>(List.of(
+            new Users(1L,"Anmol","A@123","USER"),
+            new Users(2L,"Sanjay","S@123","USER")
     ));
     @GetMapping("/users")
-    public List<User> getUser(){
+    public List<Users> getUser(){
         return users;
     }
 
@@ -29,7 +29,7 @@ public class UserContoller {
     }
 
     @PostMapping("/users")
-    public User createUser(@RequestBody User user){
+    public Users createUser(@RequestBody Users user){
         users.add(user);
         return user;
     }
