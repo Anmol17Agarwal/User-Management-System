@@ -2,6 +2,7 @@ package com.security.UserManagementSystem.Service;
 
 import com.security.UserManagementSystem.Entity.Users;
 import com.security.UserManagementSystem.Repository.UsersRepository;
+import com.security.UserManagementSystem.Utility.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,8 @@ public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private AuthenticationManager authManager;
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
@@ -39,7 +42,7 @@ public class UsersService {
             );
 
             if (authentication.isAuthenticated()) {
-                return "Success";
+                return jwtTokenUtil.generateToken(users.getUserName());
             } else {
                 return "Failure";
             }
