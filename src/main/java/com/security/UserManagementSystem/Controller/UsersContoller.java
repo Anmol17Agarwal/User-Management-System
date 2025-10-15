@@ -34,4 +34,10 @@ public class UsersContoller {
         usersService.register(user);
         return user;
     }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Users users){
+        return usersService.verify(users);
+
+    }
 }
