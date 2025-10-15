@@ -1,7 +1,7 @@
 package com.security.UserManagementSystem.Controller;
 
 import com.security.UserManagementSystem.Entity.Users;
-import com.security.UserManagementSystem.Repository.UsersRepository;
+import com.security.UserManagementSystem.Service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,21 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UsersContoller {
 
     @Autowired
-    UsersRepository usersRepository;
-//    private List<Users> users = new ArrayList<>(List.of(
-//            new Users(1L,"Anmol","A@123","USER"),
-//            new Users(2L,"Sanjay","S@123","USER")
-//    ));
+    UsersService usersService;
+
+
     @GetMapping("/users")
     public List<Users> getUser(){
-        return usersRepository.findAll() ;
+        return usersService.getAllUsers() ;
     }
 
     @GetMapping("/csrf-token")
@@ -32,9 +29,9 @@ public class UsersContoller {
         return (CsrfToken) request.getAttribute("_csrf");
     }
 
-    @PostMapping("/users")
-    public Users createUser(@RequestBody Users user){
-        usersRepository.save(user);
+    @PostMapping("/register")
+    public Users register(@RequestBody Users user){
+        usersService.register(user);
         return user;
     }
 }
